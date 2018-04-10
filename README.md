@@ -78,6 +78,25 @@ manage.py :项目的入口文件
 
 ```
 
+# 6、创建User模型
+在models.py文件中创建用户模型,用户字段包括:Id、telephone、username、password
+```
+class User(db.Model):
+    __tablename = 'user'
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    telephone = db.Column(db.String(11),nullable=False)
+    username = db.Column(db.String(50),nullable=False)
+    password = db.Column(db.String(100),nullable=False)
+```
+
+问题1:`ImportError: No module named 'MySQLdb'`
+
+解决：`pip3 install pymysql` 并且在配置文件`config.py`中更改`DRIVER = 'pymysql'`
+
+问题2:`pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] 由于目标计算
+机积极拒绝，无法连接`
+
+解决：记得在计算机中的管理中将MySQL服务打开
 
 
 
