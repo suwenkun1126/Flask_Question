@@ -38,6 +38,28 @@ manage.py :项目的入口文件
 
 模板的继承:使用`{% extends 'base.html' %}`继承基模板的代码,同时可以在`{% block xxx %} {% endblock %}`中自定义代码.
 
+# 4、登录页面的创建
+登录页面`login.html`的创建主要还是参考`bootstrap`中表单的设计：
+
+```
+    <h3 class="page-title">登录</h3>
+    <form action="" method="post">
+        <div class="form-container">
+            <div class="form-group"> #form-group的使用
+                <input class="form-control" type="text" placeholder="手机号码"> #form-control的使用
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block">立即登录</button> #btn btn-primary btn-block的使用
+            </div>
+        </div>
+    </form>
+```
+
+
+
 
 
 
