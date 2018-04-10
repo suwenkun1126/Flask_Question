@@ -58,6 +58,51 @@ manage.py :项目的入口文件
     </form>
 ```
 
+# 5、注册页面的创建
+注册页面的创建和登录页面的创建是一样的：
+```
+<h3 class="page-title">登录</h3>
+    <form action="" method="post">
+        <div class="form-container">
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="手机号码" name="telephone">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" placeholder="密码" name="password">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block">立即登录</button>
+            </div>
+        </div>
+    </form>
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
