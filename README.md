@@ -100,6 +100,7 @@ class User(db.Model):
 
 # 7、完成注册视图函数
 注册视图函数:
+
 (1)、表单中用户输入的数据的获取`request.form.get()`
 
 (2)、数据库的数据查询`User.query.filter(User.telephone == telephone)`
@@ -127,6 +128,34 @@ def register():
                 db.session.add(user)
                 db.session.commit()
                 return redirect(url_for('login'))
+
+```
+
+# 8、完成登录视图函数
+登录视图函数:
+
+(1)、表单中用户输入的数据的获取`request.form.get()`
+
+(2)、数据库的数据查询`User.query.filter(User.telephone == telephone,User.password == password).first()`
+
+(3)、由于HTTP是无状态的,为了保持用户登录状态,需要传递一个session `session['user_id'] = user.id`
+
+```
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        telephone = request.form.get('telephone')
+        password = request.form.get('password')
+        user = User.query.filter(User.telephone == telephone,User.password == password).first()
+        if user:
+            session['user_id'] = user.id
+            session.permanent = True
+            return redirect(url_for('index'))
+        else:
+            return u'手机号码或密码输入错误,请确认后再重新输入！'
+
 
 ```
 
