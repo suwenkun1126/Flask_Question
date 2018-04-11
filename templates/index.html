@@ -1,7 +1,50 @@
 {% extends 'base.html' %}
 
 {% block title %}首页{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock %}
 {% block main %}
-    这是首页
+    <ul class="question-list-group">
+        <li>
+            <div class="avatar-group">
+                <img class="avatar" src="{{ url_for('static',filename='images/brand.png') }}" alt="头像">
+            </div>
+            <div class="question-group">
+                <p class="question-title"><a href="#">这里是标题</a></p>
+                <p class="quetion-content">这里是文章内容。。。。。。。。。。。。。。。。</p>
+            </div>
+            <div class="question-info">
+                <span class="question-author">xiaozuozuo</span>
+                <span class="question-time">2018-04-10 20:12:23</span>
+            </div>
+        </li>
+        <li>
+            <div class="avatar-group">
+                <img class="avatar" src="{{ url_for('static',filename='images/brand.png') }}" alt="头像">
+            </div>
+            <div class="question-group">
+                <p class="question-title"><a href="#">这里是标题</a></p>
+                <p class="quetion-content">这里是文章内容。。。。。。。。。。。。。。。。</p>
+            </div>
+            <div class="question-info">
+                <span class="question-author">xiaozuozuo</span>
+                <span class="question-time">2018-04-10 20:12:23</span>
+            </div>
+        </li>
+        <li>
+            <div class="avatar-group">
+                <img class="avatar" src="{{ url_for('static',filename='images/brand.png') }}" alt="头像">
+            </div>
+            <div class="question-group">
+                <p class="question-title"><a href="#">这里是标题</a></p>
+                <p class="quetion-content">这里是文章内容。。。。。。。。。。。。。。。。</p>
+            </div>
+            <div class="question-info">
+                <span class="question-author">xiaozuozuo</span>
+                <span class="question-time">2018-04-10 20:12:23</span>
+            </div>
+        </li>
+    </ul>
 {% endblock %}
 
