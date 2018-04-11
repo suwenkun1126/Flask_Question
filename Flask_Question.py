@@ -11,7 +11,7 @@ db.init_app(app)
 def index():
     return render_template('index.html')
 
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login/',methods=['GET','POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
@@ -26,7 +26,7 @@ def login():
         else:
             return u'手机号码或密码输入错误,请确认后再重新输入！'
 
-@app.route('/register',methods=['GET','POST'])
+@app.route('/register/',methods=['GET','POST'])
 def register():
     if request.method == 'GET':
         return render_template('register.html')
@@ -46,6 +46,13 @@ def register():
                 db.session.add(user)
                 db.session.commit()
                 return redirect(url_for('login'))
+
+@app.route('/question/',methods=['GET','POST'])
+def question():
+    if request.method == 'GET':
+        return render_template('question.html')
+    else:
+        pass
 
 if __name__ == '__main__':
     app.run()
