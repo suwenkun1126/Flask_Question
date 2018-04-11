@@ -270,6 +270,28 @@ def question():
         return redirect(url_for('index'))
 ```
 
+# 12、首页页面的创建
+
+首页页面的创建主要涉及到前端的知识
+
+```
+    <ul class="question-list-group">
+        <li>
+            <div class="avatar-group">
+                <img class="avatar" src="{{ url_for('static',filename='images/brand.png') }}" alt="头像">
+            </div>
+            <div class="question-group">
+                <p class="question-title"><a href="#">这里是标题</a></p>
+                <p class="quetion-content">这里是文章内容。。。。。。。。。。。。。。。。</p>
+            </div>
+            <div class="question-info">
+                <span class="question-author">xiaozuozuo</span>
+                <span class="question-time">2018-04-10 20:12:23</span>
+            </div>
+        </li>
+    </ul>
+```
+
 
 
 
