@@ -368,6 +368,52 @@ def detail(question_id):
     </form>
 ```
 
+# 16、创建Answer模型并完成评论视图函数
+
+## （1）创建Answer模型
+
+```
+class Answer(db.Model):
+    __tablename__ = 'answer'
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    answer = db.Column(db.Text,nullable=False)
+    question_id = db.Column(db.Integer,db.ForeignKey('question.id'))
+    question = db.relationship('Question',backref=db.backref('answers'))
+    author_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+    author = db.relationship('User',backref=db.backref('answers'))
+```
+
+
+## （1）完成评论视图函数
+
+```
+@app.route('/add_answer/',methods=['POST'])
+@login_required
+def add_answer():
+    answer_content = request.form.get('answer_content')
+    question_id = request.form.get('question_id')
+    answer = Answer(answer=answer_content)
+    user_id = session.get('user_id')
+    user = User.query.filter(User.id == user_id).first()
+    answer.author = user
+    question = Question.query.filter(Question.id == question_id).first()
+    answer.question = question
+    db.session.add(answer)
+    db.session.commit()
+    return redirect(url_for('detail',question_id=question_id))
+```
+**注意**：为了将评论提交到数据库,必须要新建一个Answer模型,并且要有author字段,author字段可以通过`user_id = session.get('user_id')
+    user = User.query.filter(User.id == user_id).first()`获得,并且还要有question字段,要想得到question地段就要从`question = Question.query.filter(Question.id == question_id).first()`获得,然后如何拿到`question_id`就是关键.
+    
+```
+/detail.html
+    <div class="form-group">
+        <input type="text" class="form-control" name="answer_content" placeholder="请输入评论">
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+    </div>
+```
+     
+     从而在视图函数中通过`question_id = request.form.get('question_id')`获得`question_id`的值
 
 
 
