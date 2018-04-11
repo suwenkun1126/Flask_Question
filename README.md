@@ -324,8 +324,33 @@ def index():
 ```
 注意作者是如何取到：`question.author.username`
 
+# 14、完成问答详情页的创建
+
+## （1）详情页视图函数的创建
+
+```
+@app.route('/detail/<question_id>')
+def detail(question_id):
+    question = Question.query.filter(Question.id == question_id).first()
+    return render_template('detail.html',question=question)
+
+```
 
 
+## （2）详情页面模板的创建
+
+```
+<h3 class="page-title">{{ question.title }}</h3>
+    <p class="question-info">
+        <span class="question-author">作者：{{ question.author.username }}</span>
+        <span>时间：{{ question.created_time }}</span>
+    </p>
+    <hr>
+    <p class="question-content">{{ question.content }}</p>
+    <hr>
+```
+
+**注意**：在首页中实现详情页面的跳转`url_for('detail',question_id=question.id)`,记得要传入参数,否则会发生报错
 
 
 
