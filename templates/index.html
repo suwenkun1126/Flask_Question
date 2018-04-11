@@ -12,7 +12,7 @@
                     <img class="avatar" src="{{ url_for('static',filename='images/brand.png') }}" alt="头像">
                 </div>
                 <div class="question-group">
-                    <p class="question-title"><a href="#">{{ question.title }}</a></p>
+                    <p class="question-title"><a href="{{ url_for('detail',question_id=question.id) }}">{{ question.title }}</a></p>
                     <p class="quetion-content">{{ question.content }}</p>
                 </div>
                 <div class="question-info">
