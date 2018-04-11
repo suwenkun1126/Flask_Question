@@ -159,6 +159,26 @@ def login():
 
 ```
 
+# 9.提问页面的创建
+
+提问页面的创建和之前的登录页面、注册页面的创建类似
+```
+    <div class="form-container">
+        <h3 class="page-title">发布问答</h3>
+        <form action="" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="title" placeholder="请输入标题">
+            </div>
+            <div class="form-group">
+                <textarea name="content" rows="10" class="form-control" placeholder="请输入内容"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">立即发布</button>
+            </div>
+        </form>
+    </div>
+```
+
 
 
 
