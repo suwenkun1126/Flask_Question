@@ -2,6 +2,7 @@ from flask import Flask,render_template,url_for,request,redirect,session
 import config
 from exts import db
 from models import User
+from decorators import login_required
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -26,6 +27,11 @@ def login():
         else:
             return u'手机号码或密码输入错误,请确认后再重新输入！'
 
+@app.route('/logout/')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
 @app.route('/register/',methods=['GET','POST'])
 def register():
     if request.method == 'GET':
@@ -48,11 +54,21 @@ def register():
                 return redirect(url_for('login'))
 
 @app.route('/question/',methods=['GET','POST'])
+@login_required
 def question():
     if request.method == 'GET':
         return render_template('question.html')
     else:
         pass
+
+@app.context_processor
+def my_context_processor():
+    user_id = session.get('user_id')
+    if user_id:
+        user = User.query.filter(User.id == user_id).first()
+        if user:
+            return {'user':user}
+    return {}
 
 if __name__ == '__main__':
     app.run()
