@@ -10,7 +10,8 @@ db.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    questions = Question.query.order_by('-created_time').all()
+    return render_template('index.html',questions=questions)
 
 @app.route('/login/',methods=['GET','POST'])
 def login():
