@@ -1,4 +1,4 @@
-from flask import Flask,render_template,url_for,request,redirect
+from flask import Flask,render_template,url_for,request,redirect,session
 import config
 from exts import db
 from models import User
@@ -16,7 +16,15 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     else:
-        pass
+        telephone = request.form.get('telephone')
+        password = request.form.get('password')
+        user = User.query.filter(User.telephone == telephone,User.password == password).first()
+        if user:
+            session['user_id'] = user.id
+            session.permanent = True
+            return redirect(url_for('index'))
+        else:
+            return u'手机号码或密码输入错误,请确认后再重新输入！'
 
 @app.route('/register',methods=['GET','POST'])
 def register():
