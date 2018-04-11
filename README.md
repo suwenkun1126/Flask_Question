@@ -159,7 +159,7 @@ def login():
 
 ```
 
-# 9.提问页面的创建
+# 9、提问页面的创建
 
 提问页面的创建和之前的登录页面、注册页面的创建类似
 ```
@@ -177,6 +177,64 @@ def login():
             </div>
         </form>
     </div>
+```
+
+# 10、 context_processor钩子函数实现注销功能及装饰器实现登录限制
+
+## （1）context_processor钩子函数
+
+context_processor钩子函数：使用这个函数,必须返回一个字典,这个字典中的值在所有的**模板**中都可以使用.
+如果在很多模板中都要使用同一个变量,那么就可以使用此钩子函数来进行返回,而不用在每一个视图函数中的`render_template`中
+都要写一次，从而使代码更加简洁.
+
+```
+@app.context_processor
+def my_context_processor:
+    user_id = session.get('user_id')
+    if user_id:
+        user = User.query.filter(User.id == user_id).first()
+        if user:
+            return {'user':user}
+    return {}
+        
+```
+**注意**：最后`return {}`的写法,如果不写会出现报错
+
+在`base.html`中
+
+```
+    <ul class="nav navbar-nav navbar-right">
+        {% if user  %}
+            <li><a href="#">{{ user.username }}</a></li>
+            <li><a href="{{ url_for('logout') }}">注销</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">登录</a></li>
+            <li><a href="{{ url_for('register') }}">注册</a></li>
+        {% endif %}
+    </ul>
+```
+## （2）装饰器实现登录限制
+
+装饰器：它本质上是一个特殊的函数,一方面它的参数是一个函数,另一方面它的返回值也是一个函数.
+
+装饰器的使用:
+
+A、通过一个@符号,放在函数的上面
+
+B、装饰器中定义的函数要使用 `*args` 和 `**kwargs` ,并且在函数中执行原始函数也要把`*args` 和 `**kwargs`传递进去
+
+C、使用functools.wraps在装饰器中的函数上把要传递进去的这个函数进行一个包裹,这样就不会丢掉原来函数`__name__`等属性
+
+```
+from functools import wraps
+
+def login_required(func):
+    wraps(func)
+    def wrapper(*args,**kwargs):
+        if session.get('user_id'):
+            return func(*args,**kwargs)
+        return redirect(url_for('login'))
+    return wrapper
 ```
 
 
