@@ -292,6 +292,39 @@ def question():
     </ul>
 ```
 
+# 13、完成首页视图函数
+首页视图函数
+
+```
+@app.route('/')
+def index():
+    questions = Question.query.order_by('-created_time').all()
+    return render_template('index.html',questions=questions)
+```
+注意按时间顺序排列的这种写法：`questions = Question.query.order_by('-created_time').all()`
+
+```
+<ul class="question-list-group">
+        {% for question in questions %}
+            <li>
+                <div class="avatar-group">
+                    <img class="avatar" src="{{ url_for('static',filename='images/brand.png') }}" alt="头像">
+                </div>
+                <div class="question-group">
+                    <p class="question-title"><a href="#">{{ question.title }}</a></p>
+                    <p class="quetion-content">{{ question.content }}</p>
+                </div>
+                <div class="question-info">
+                    <span class="question-author">{{ question.author.username }}</span>
+                    <span class="question-time">{{ question.created_time }}</span>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+```
+注意作者是如何取到：`question.author.username`
+
+
 
 
 
