@@ -237,6 +237,38 @@ def login_required(func):
     return wrapper
 ```
 
+# 11、创建Question模型并完成提问视图函数
+
+创建Question模型:
+```
+class Question(db.Model):
+    __tablename__ = 'question'
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    title = db.Column(db.String(100),nullable=False)
+    text = db.Column(db.Text,nullable=False)
+    author_id = db.Column(db.Integer,db.Foreignkey('user.id'))
+    author = db.relationship('User',backref=db.backref('questions'))
+    
+```
+
+实现视图函数:
+
+```
+@app.route('/question/')
+def question():
+    if request.method == 'GET':
+        return render_template('question.html')
+    else:
+        title = request.form.get('title')
+        content = requstion.form.get('content')
+        question = Question(title=title,content=content)
+        user_id = session.get('user_id')
+        user = User.query.filter(User.id == user_id).first()
+        question.author = user
+        db.session.add(question)
+        db.session.commit()
+        return redirect(url_for('index'))
+```
 
 
 
