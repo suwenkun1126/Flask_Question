@@ -352,6 +352,21 @@ def detail(question_id):
 
 **注意**：在首页中实现详情页面的跳转`url_for('detail',question_id=question.id)`,记得要传入参数,否则会发生报错
 
+# 15、评论页面的创建
+
+创建评论页面：
+
+```
+<h4>评论：（5）</h4>
+    <form action="#" method="post">
+        <div class="form-group">
+            <input type="text" class="form-control" name="answer_content" placeholder="请输入评论">
+        </div>
+        <div class="form-group" style="text-align: right">
+            <button class="btn btn-primary">评论</button>
+        </div>
+    </form>
+```
 
 
 
