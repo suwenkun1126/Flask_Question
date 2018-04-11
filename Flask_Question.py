@@ -75,7 +75,9 @@ def detail(question_id):
     question = Question.query.filter(Question.id == question_id).first()
     return render_template('detail.html',question=question)
 
-
+@app.route('/add_answer/',methods=['POST'])
+def add_answer():
+    pass
 
 @app.context_processor
 def my_context_processor():
